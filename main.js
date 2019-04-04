@@ -4,18 +4,8 @@ let c = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let vec = new Vector(0, 5);
-let vel = new Vector(.5, .2);
-
 function init() {
     // alert("hello world!");
-    vec.print();
-    let vec = new Vector(5, 7);
-    let vel = new Vector(1, 1);
-    vel.scale(2);
-    vel.print(); // <2, 2>
-    pos.subVector(vel);
-    pos.print();  // <3, 5>
 
     update();
 }
@@ -32,6 +22,13 @@ function update() {
 
     requestAnimationFrame(update);
 }
+
+let vec = new Vector(5, 7);
+let vel = new Vector(1, 1);
+vel.scale(2);
+vel.print(); // <2, 2>
+vec.addVector(vel);
+vec.print();  // <3, 5>
 
 window.addEventListener('load', function (event) {
     init();
