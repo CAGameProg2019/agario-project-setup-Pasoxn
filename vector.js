@@ -19,7 +19,9 @@ class Vector {
     }
 
     scale (s){
-        s = subVector(vec)*s;
+        this.x *= s;
+        this.y *= s;
+        return this;
     }
     toString(){
         return '(' + this.x + ',' + this.y + ')'
