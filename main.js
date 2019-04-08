@@ -7,10 +7,23 @@ canvas.height = window.innerHeight;
 let foods = []; //if created in init, it could only be used in init
 
 let colors = [
-    'blue',
-    'green',
-    'red',
-    '#4286f4'
+    '#CFCFCF',
+    '#DFDFDF',
+    '#EFEFEF',
+    '#4286f4',
+    '#BFBFBF',
+    '#AFAFAF', 
+    '#9F9F9F', 
+    '#8F8F8F', 
+    '#7F7F7F', 
+    '#6F6F6F', 
+    '#5F5F5F', 
+    '#4F4F4F', 
+    '#3F3F3F', 
+    '#2F2F2F', 
+    '#1F1F1F', 
+    '#0F0F0F', 
+    '#000000', 
 ]
 
 function randomColor() {
@@ -19,7 +32,7 @@ function randomColor() {
 }
 
 function init() {
-    for (i = 0; i <= 100; i++) {
+    for (i = 0; i <= 500; i++) {
     let x = Math.random() * canvas.width;
     let y = Math.random() * canvas.height;
     let color = randomColor();
@@ -33,7 +46,7 @@ function init() {
 
 function update() {
     c.clearRect(0, 0, canvas.width, canvas.height);
-    for (i = 0; i <= 100; i++) {
+    for (i = 0; i <= 500; i++) {
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
         let color = randomColor();
@@ -52,5 +65,3 @@ window.addEventListener('load', function (event) {
 });
 
 //shift alt f is the shortcut for formating 
-
-//something is wrong...
