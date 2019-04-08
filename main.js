@@ -33,10 +33,15 @@ function init() {
 
 function update() {
     c.clearRect(0, 0, canvas.width, canvas.height);
-        
-    for (i = 0; i < foods.length; i++) {
+    for (i = 0; i <= 100; i++) {
+        let x = Math.random() * canvas.width;
+        let y = Math.random() * canvas.height;
+        let color = randomColor();
+
+        foods.push(new Food(x, y, 20, color));
         foods[i].draw(c);
-    }
+        }
+
 
     requestAnimationFrame(update);
 }
