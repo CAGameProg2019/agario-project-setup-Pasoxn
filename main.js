@@ -39,19 +39,14 @@ function init() {
 
     // let food = new Food(x, y, 20, color);
 
-        foods.push(new Food(x, y, 20, color));
+    foods.push(new Food(x, y, 20, color));
     }
     update();
 }
 
 function update() {
     c.clearRect(0, 0, canvas.width, canvas.height);
-    for (i = 0; i <= 500; i++) {
-        let x = Math.random() * canvas.width;
-        let y = Math.random() * canvas.height;
-        let color = randomColor();
-
-        foods.push(new Food(x, y, 20, color));
+    for (i = 0; i <= foods.length; i++) {
         foods[i].draw(c);
         }
 
