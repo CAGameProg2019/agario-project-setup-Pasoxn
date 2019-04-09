@@ -1,8 +1,11 @@
 let canvas = document.getElementById('main');
 let c = canvas.getContext('2d');
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = window.innerWidth -5;
+canvas.height = window.innerHeight-5;
+
+let mpos; //mouse position
+let player; //position of circle
 
 let foods = []; //if created in init, it could only be used in init
 
@@ -32,31 +35,46 @@ function randomColor() {
 }
 
 function init() {
-    for (i = 0; i <= 500; i++) {
-    let x = Math.random() * canvas.width;
-    let y = Math.random() * canvas.height;
-    let color = randomColor();
+    mpos = new Vector(canvas.width/2, canvas.height/2);
+    player = new Player (undefined, undefined, 50, randomColor());
 
-    // let food = new Food(x, y, 20, color);
-
-    foods.push(new Food(x, y, 20, color));
+    for (let i = 0; i <= 500; i++) {
+        let x = Math.random() * canvas.width;
+        let y = Math.random() * canvas.height;
+        let color = randomColor();
+        // let food = new Food(x, y, 20, color);
+        foods.push(new Food(x, y, 20, color));
     }
     update();
 }
 
 function update() {
     c.clearRect(0, 0, canvas.width, canvas.height);
-    for (i = 0; i <= foods.length; i++) {
+
+    for (let i = 0; i < foods.length; i++) {
         foods[i].draw(c);
         }
 
+    player.x = mpos.x;
+    player.y = mpos.y;
+    player.draw(c);
 
     requestAnimationFrame(update);
 }
 
 
-window.addEventListener('load', function (event) {
+window.addEventListener('load', function () {
     init();
+
+    window.addEventListener('mousemove', function(event){
+        // console.log(event.clientX, event.clientY);
+        mpos.x = event.clientX - canvas.offsetLeft;
+        mpos.y = event.clientY - canvas.offsetTop;
+        mpos.print();
+
+    });
+
+
 });
 
 //shift alt f is the shortcut for formating 
