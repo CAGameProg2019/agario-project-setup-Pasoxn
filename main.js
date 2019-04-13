@@ -1,8 +1,9 @@
 let canvas = document.getElementById('main');
 let c = canvas.getContext('2d');
+const FOOD_COUNT = 700;
 
-canvas.width = window.innerWidth -5;
-canvas.height = window.innerHeight-5;
+canvas.width = window.innerWidth - 5;
+canvas.height = window.innerHeight - 5;
 
 let mpos; //mouse position
 let player; //position of circle
@@ -15,18 +16,18 @@ let colors = [
     '#EFEFEF',
     '#4286f4',
     '#BFBFBF',
-    '#AFAFAF', 
-    '#9F9F9F', 
-    '#8F8F8F', 
-    '#7F7F7F', 
-    '#6F6F6F', 
-    '#5F5F5F', 
-    '#4F4F4F', 
-    '#3F3F3F', 
-    '#2F2F2F', 
-    '#1F1F1F', 
-    '#0F0F0F', 
-    '#000000', 
+    '#AFAFAF',
+    '#9F9F9F',
+    '#8F8F8F',
+    '#7F7F7F',
+    '#6F6F6F',
+    '#5F5F5F',
+    '#4F4F4F',
+    '#3F3F3F',
+    '#2F2F2F',
+    '#1F1F1F',
+    '#0F0F0F',
+    '#000000',
 ]
 
 function randomColor() {
@@ -34,30 +35,58 @@ function randomColor() {
     return colors[index];
 }
 
-function init() {
-    mpos = new Vector(canvas.width/2, canvas.height/2);
-    player = new Player (undefined, undefined, 50, randomColor());
+function generateFood(){
+    let x = Math.random() * canvas.width;
+    let y = Math.random() * canvas.height;
+    let color = randomColor();
 
-    for (let i = 0; i <= 500; i++) {
-        let x = Math.random() * canvas.width;
-        let y = Math.random() * canvas.height;
-        let color = randomColor();
-        // let food = new Food(x, y, 20, color);
-        foods.push(new Food(x, y, 20, color));
+    // let food = new Food(x, y, 20, color);
+    foods.push(new Food(x, y, 10, color));
+
+}
+
+function init() {
+    mpos = new Vector(canvas.width / 2, canvas.height / 2);
+    player = new Player(undefined, undefined, 20, randomColor());
+
+    for (let i = 0; i < FOOD_COUNT; i++) {
+        generateFood();
     }
     update();
 }
+
+let name = prompt('enter name');
 
 function update() {
     c.clearRect(0, 0, canvas.width, canvas.height);
 
     for (let i = 0; i < foods.length; i++) {
-        foods[i].draw(c);
+        let eaten = player.intersects(foods[i]);
+        if (!eaten) {
+            foods[i].draw(c);
+        } 
+        else {
+            // console.log('AAAAAAAAAAAAAAAAAAAA');
+            player.addMass(foods[i].mass);
+            foods.splice(i, 1);
+            i--;
         }
+
+    }
+
+    while(foods.length < FOOD_COUNT){
+        generateFood();
+    }
 
     player.x = mpos.x;
     player.y = mpos.y;
+    
     player.draw(c);
+
+    c.fillStyle = "#00008b";
+    c.textAlign = "center";
+    c.font = "30px Arial";
+    c.fillText(name, mpos.x, mpos.y); 
 
     requestAnimationFrame(update);
 }
@@ -66,7 +95,7 @@ function update() {
 window.addEventListener('load', function () {
     init();
 
-    window.addEventListener('mousemove', function(event){
+    window.addEventListener('mousemove', function (event) {
         // console.log(event.clientX, event.clientY);
         mpos.x = event.clientX - canvas.offsetLeft;
         mpos.y = event.clientY - canvas.offsetTop;
