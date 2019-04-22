@@ -29,11 +29,20 @@ class Vector {
         this.y *= s;
         return this;
     }
+
+    magnitude(){
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    }
+
+    toDirVec(){
+        this.scale(1/this.magnitude());
+    }
+    
     toString(){
         return '(' + this.x + ',' + this.y + ')'
     }
 
     print(){
-        console.log(this.toString());
+        // console.log(this.toString());
     }
 }
