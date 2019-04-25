@@ -94,10 +94,31 @@ function update() {
             foods[i].draw(c);
         } 
         else {
+            //set foods[i] to the x and y of the cursor - the radius of the circle - the radius of the food 
+            //need to count the food collected as something seperate 
+            //distance from wall 
             // console.log('AAAAAAAAAAAAAAAAAAAA');
+            tail = [];
+            for (let j = 0; j < tail.length; j++){
+                tail.push(foods[i]);
+                tail[j].draw(c);
+                j--;
+            }
             player.addMass(foods[i].mass);
-            foods.splice(i, 1);
+            
+            if (player.intersects(foods[i])){
+                foods[i].x -= player.radius - 10;
+                foods[i].y -= player.radius - 10;
+
+            }
+            // foods[i].x = player.x - player.radius;
+            foods[i].y = player.y - player.radius;
+            foods[i].x = player.x - player.radius;
+            
+            foods[i].draw(c);
+            // foods.splice(i, 1);
             i--;
+
         }
 
     }
